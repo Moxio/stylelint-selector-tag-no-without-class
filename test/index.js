@@ -3,9 +3,7 @@ const selectorTagNoWithoutClass = require('..');
 
 testRule(selectorTagNoWithoutClass.rule, {
 	ruleName: selectorTagNoWithoutClass.ruleName,
-	config: [ true, {
-		tags: [ 'span', 'div' ]
-	} ],
+	config: [ [ 'span', 'div' ] ],
 	skipBasicChecks: false,
 
 	accept: [

@@ -50,20 +50,16 @@ Add the plugin and the corresponding rule to the stylelint configuration file, a
     "stylelint-selector-tag-no-without-class"
   ],
   "rules": {
-    "plugin/stylelint-selector-tag-no-without-class": [ true, {
-      "tags": ["div", "span"]
-    } ]
+    "plugin/stylelint-selector-tag-no-without-class": ["div", "span"]
   }
 }
 ```
 
 Primary option
 --------------
-Boolean; whether to enable this rule or not.
+`array|string`: `["array", "of", "tags", "or", "/regexes/"]|"tag"|"/regex/"`
 
-Secondary options
------------------
-* tags: array of tags that should not occur without a class qualifier
+Specification of tags that should not occur without a class qualifier. If a string is surrounded with `"/"`, it is interpreted as a regular expression. For example, `"^/h\d+$/"` disallows using any section heading without a class qualifier.
 
 License
 -------

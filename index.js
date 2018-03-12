@@ -3,26 +3,18 @@ const stylelint = require('stylelint');
 const isStandardSyntaxRule = require("stylelint/lib/utils/isStandardSyntaxRule");
 const isStandardSyntaxSelector = require("stylelint/lib/utils/isStandardSyntaxSelector");
 const parseSelector = require("stylelint/lib/utils/parseSelector");
+const matchesStringOrRegExp = require("stylelint/lib/utils/matchesStringOrRegExp");
 
 const ruleName = 'plugin/selector-tag-no-without-class';
 const messages = stylelint.utils.ruleMessages(ruleName, {
 	unexpected: (tagName) => `Unexpected tag ${tagName} without class qualifier`
 });
-const optionsSchema = {
-	tags: [ _.isString ]
-};
 
-module.exports = stylelint.createPlugin(ruleName, function(primaryOption, secondaryOptionObject) {
+const rule = function(primaryOption) {
 	return function(root, result) {
-		if (!primaryOption) {
-			return;
-		}
 		let validOptions = stylelint.utils.validateOptions(result, ruleName, {
 			actual: primaryOption,
-			possible: _.isBoolean
-		}, {
-			actual: secondaryOptionObject,
-			possible: optionsSchema
+			possible: [_.isString]
 		});
 		if (!validOptions) {
 			return;
@@ -36,7 +28,7 @@ module.exports = stylelint.createPlugin(ruleName, function(primaryOption, second
 			combinedSegments.forEach(segment => {
 				let unqualifiedTagNode;
 				segment.forEach(node => {
-					if (node.type === 'tag' && _.includes(secondaryOptionObject.tags, node.value)) {
+					if (node.type === 'tag' && matchesStringOrRegExp(node.value, primaryOption)) {
 						unqualifiedTagNode = node;
 					}
 					if (node.type === 'class') {
@@ -85,6 +77,8 @@ module.exports = stylelint.createPlugin(ruleName, function(primaryOption, second
 			});
 		});
 	};
-});
-module.exports.ruleName = ruleName;
-module.exports.messages = messages;
+};
+rule.primaryOptionArray = true;
+rule.ruleName = ruleName;
+rule.messages = messages;
+module.exports = stylelint.createPlugin(ruleName, rule);
