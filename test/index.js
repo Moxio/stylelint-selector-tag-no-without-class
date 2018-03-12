@@ -3,6 +3,9 @@ const selectorTagNoWithoutClass = require('..');
 
 testRule(selectorTagNoWithoutClass.rule, {
 	ruleName: selectorTagNoWithoutClass.ruleName,
+	// The config options below should eventually be just `[ 'span', 'div' ]`,
+	// but this does not work yet with stylelint-test-rule-tape;
+	// see https://github.com/stylelint/stylelint-test-rule-tape/issues/6
 	config: [ [ 'span', 'div' ] ],
 	skipBasicChecks: false,
 
