@@ -61,6 +61,10 @@ Primary option
 
 Specification of tags that should not occur without a class qualifier. If a string is surrounded with `"/"`, it is interpreted as a regular expression. For example, `"^/h\d+$/"` disallows using any section heading without a class qualifier.
 
+Versioning
+----------
+This project adheres to [Semantic Versioning](http://semver.org/). A list of notable changes for each release can be found in the [changelog](CHANGELOG.md).
+
 License
 -------
 This plugin is released under the MIT license.
