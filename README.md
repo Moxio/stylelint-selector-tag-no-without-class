@@ -50,7 +50,7 @@ Add the plugin and the corresponding rule to the stylelint configuration file, a
     "stylelint-selector-tag-no-without-class"
   ],
   "rules": {
-    "plugin/stylelint-selector-tag-no-without-class": ["div", "span"]
+    "plugin/selector-tag-no-without-class": ["div", "span"]
   }
 }
 ```
