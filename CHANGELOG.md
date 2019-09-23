@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1] - 2019-07-24
+
+### Added
+- This plugin now declares compatibility with Stylelint version 10. Thanks
+  to [Andrew Lisowski](https://github.com/hipstersmoothie) for the 
+  [patch](https://github.com/Moxio/stylelint-selector-tag-no-without-class/pull/2).
+
 ## [2.0.0] - 2018-03-12
 
 ### Changed
