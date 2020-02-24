@@ -4,14 +4,14 @@
 
 ### Added
 - This plugin now declares compatibility with Stylelint version 11. Thanks
-  to [Evgeny Orekhov](https://github.com/EvgenyOrekhov) for opening the 
+  to [Evgeny Orekhov](https://github.com/EvgenyOrekhov) for opening the
   [issue](https://github.com/Moxio/stylelint-selector-tag-no-without-class/issues/3).
 
 ## [2.0.1] - 2019-07-24
 
 ### Added
 - This plugin now declares compatibility with Stylelint version 10. Thanks
-  to [Andrew Lisowski](https://github.com/hipstersmoothie) for the 
+  to [Andrew Lisowski](https://github.com/hipstersmoothie) for the
   [patch](https://github.com/Moxio/stylelint-selector-tag-no-without-class/pull/2).
 
 ## [2.0.0] - 2018-03-12
@@ -21,7 +21,7 @@
   occur without a class qualifier. The secondary configuration option has
   been dropped. The primary configuration option can also be a string (if
   the rule applies to a single tag), and also supports regular expressions.
-  
+
   Before:
   ```js
   "plugin/stylelint-selector-tag-no-without-class": [ true, {
