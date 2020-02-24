@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.0.3] - 2020-02-24
+
+### Added
+- This plugin now declares compatibility with Stylelint version 12 & 13.
+
 ## [2.0.2] - 2019-09-23
 
 ### Added
