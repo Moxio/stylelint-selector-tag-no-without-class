@@ -1,6 +1,6 @@
 {
   "name": "stylelint-selector-tag-no-without-class",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Styelint plugin to disallow certain tags without a qualifying classname in selectors",
   "keywords": [
     "stylelint-plugin",
