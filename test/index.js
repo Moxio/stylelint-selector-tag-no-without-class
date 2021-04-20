@@ -55,3 +55,14 @@ testRule(selectorTagNoWithoutClass.rule, {
 		},
 	]
 });
+
+testRule(selectorTagNoWithoutClass.rule, {
+	ruleName: selectorTagNoWithoutClass.ruleName,
+	config: [ [ '/./' ] ],
+	skipBasicChecks: true,
+
+	accept: [
+		// https://github.com/Moxio/stylelint-selector-tag-no-without-class/issues/5
+		{ code: '@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }' },
+	]
+});

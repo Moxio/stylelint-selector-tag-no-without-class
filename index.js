@@ -69,6 +69,11 @@ const rule = function(primaryOption) {
 				// Skip unresolved nested selectors
 				return;
 			}
+			if (ruleNode.parent && ruleNode.parent.type === "atrule" && ruleNode.parent.name === "keyframes") {
+				// Skip rules within an @keyframes at-rule
+				// (https://github.com/Moxio/stylelint-selector-tag-no-without-class/issues/5)
+				return;
+			}
 
 			ruleNode.selectors.forEach(selector => {
 				parseSelector(selector, result, ruleNode, container =>
