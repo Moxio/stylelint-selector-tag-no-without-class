@@ -25,7 +25,7 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "stylelint": "^14.0.0",
+    "stylelint": "^15.6.0",
     "stylelint-test-rule-tape": "^0.2.0"
   },
   "peerDependencies": {
