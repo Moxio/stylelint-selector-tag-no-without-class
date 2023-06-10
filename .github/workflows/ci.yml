@@ -12,21 +12,20 @@ jobs:
     build:
 
         runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            node-version: [16.x, 18.x, 20.x]
+            # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
-
-            - name: Setup Node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 16
-
-            - name: Install dependencies
-              run: npm ci
-
-            - name: Run test suite
-              run: npm run test
+        - uses: actions/checkout@v3
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v3
+          with:
+            node-version: ${{ matrix.node-version }}
+            cache: 'npm'
+        - run: yarn install --immutable
+        - run: yarn test
 
 
     publish:
@@ -41,19 +40,19 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v3
               with:
-                  node-version: 16
-                  registry-url: https://registry.npmjs.org/
+                node-version: 18
+                cache: 'npm'
 
             - name: Install dependencies
-              run: npm ci
+              run: yarn install --immutable
 
             - name: Run test suite
-              run: npm run test
+              run: yarn test
 
             - name: Set new version
-              run: npm version --allow-same-version --no-git-tag-version ${{ github.event.release.tag_name }}
+              run: yarn version --allow-same-version --no-git-tag-version ${{ github.event.release.tag_name }}
 
             - name: Publish release
-              run: npm publish
+              run: yarn publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
