@@ -1,18 +1,30 @@
-const _ = require('lodash');
-const stylelint = require('stylelint');
-const isStandardSyntaxRule = require("stylelint/lib/utils/isStandardSyntaxRule");
-const isStandardSyntaxSelector = require("stylelint/lib/utils/isStandardSyntaxSelector");
-const parseSelector = require("stylelint/lib/utils/parseSelector");
-const matchesStringOrRegExp = require("stylelint/lib/utils/matchesStringOrRegExp");
+import _ from "lodash";
+import stylelint from "stylelint";
+import selectorParser from 'postcss-selector-parser';
 
-const ruleName = 'plugin/selector-tag-no-without-class';
-const messages = stylelint.utils.ruleMessages(ruleName, {
+import hasInterpolation from 'stylelint/lib/utils/hasInterpolation.mjs';
+import hasLessInterpolation from 'stylelint/lib/utils/hasLessInterpolation.mjs';
+import hasPsvInterpolation from "stylelint/lib/utils/hasPsvInterpolation.mjs";
+import hasScssInterpolation from "stylelint/lib/utils/hasScssInterpolation.mjs";
+import hasTplInterpolation from "stylelint/lib/utils/hasTplInterpolation.mjs";
+import isStandardSyntaxRule from 'stylelint/lib/utils/isStandardSyntaxRule.mjs';
+import matchesStringOrRegExp from 'stylelint/lib/utils/matchesStringOrRegExp.mjs';
+import isStandardSyntaxSelector from 'stylelint/lib/utils/isStandardSyntaxSelector.mjs';
+
+const {
+	createPlugin,
+	utils: { report, ruleMessages, validateOptions }
+  } = stylelint;
+
+export const ruleName = 'plugin/selector-tag-no-without-class';
+export const messages = ruleMessages(ruleName, {
 	unexpected: (tagName) => `Unexpected tag ${tagName} without class qualifier`
 });
 
+/** @type {import('stylelint').Rule} */
 const rule = function(primaryOption) {
 	return function(root, result) {
-		let validOptions = stylelint.utils.validateOptions(result, ruleName, {
+		let validOptions = validateOptions(result, ruleName, {
 			actual: primaryOption,
 			possible: [_.isString]
 		});
@@ -37,7 +49,7 @@ const rule = function(primaryOption) {
 				});
 
 				if (unqualifiedTagNode) {
-					stylelint.utils.report({
+					report({
 						ruleName: ruleName,
 						result: result,
 						node: ruleNode,
@@ -55,12 +67,16 @@ const rule = function(primaryOption) {
 		}
 
 		root.walkRules(ruleNode => {
+
 			if (!isStandardSyntaxRule(ruleNode)) {
 				return;
 			}
+
 			if (!isStandardSyntaxSelector(ruleNode.selector)) {
 				return;
 			}
+
+
 			if (
 				ruleNode.nodes.some(
 					node => ["rule", "atrule"].indexOf(node.type) !== -1
@@ -76,9 +92,13 @@ const rule = function(primaryOption) {
 			}
 
 			ruleNode.selectors.forEach(selector => {
-				parseSelector(selector, result, ruleNode, container =>
-					checkSelectorRoot(container, ruleNode)
-				);
+				const callback = container => checkSelectorRoot(container, ruleNode);
+				try {
+					return selectorParser(callback).processSync(selector);
+				} catch (err) {
+					result.warn(`Cannot parse selector (${err})`, { node, stylelintType: 'parseError' });
+					return undefined;
+				}
 			});
 		});
 	};
@@ -86,4 +106,5 @@ const rule = function(primaryOption) {
 rule.primaryOptionArray = true;
 rule.ruleName = ruleName;
 rule.messages = messages;
-module.exports = stylelint.createPlugin(ruleName, rule);
+
+export default createPlugin(ruleName, rule);

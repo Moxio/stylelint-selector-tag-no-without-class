@@ -1,6 +1,6 @@
-const {
-	rule: { ruleName, messages }
-} = require('.');
+import { ruleName, messages } from "./index";
+
+
 
 testRule({
 	ruleName: ruleName,
