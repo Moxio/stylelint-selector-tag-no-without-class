@@ -16,8 +16,8 @@ const {
 	utils: { report, ruleMessages, validateOptions }
   } = stylelint;
 
-export const ruleName = 'plugin/selector-tag-no-without-class';
-export const messages = ruleMessages(ruleName, {
+const ruleName = 'plugin/selector-tag-no-without-class';
+const messages = ruleMessages(ruleName, {
 	unexpected: (tagName) => `Unexpected tag ${tagName} without class qualifier`
 });
 

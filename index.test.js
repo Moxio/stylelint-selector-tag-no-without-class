@@ -1,9 +1,15 @@
-import { ruleName, messages } from "./index";
+import plugin from "./index.js";
+import { testRule } from "stylelint-test-rule-node";
 
-
+const plugins = [plugin];
+const {
+  ruleName,
+  rule: { messages }
+} = plugin;
 
 testRule({
-	ruleName: ruleName,
+	plugins,
+	ruleName,
 	config: [ 'span', 'div' ],
 
 	accept: [
@@ -54,7 +60,8 @@ testRule({
 });
 
 testRule({
-	ruleName: ruleName,
+	plugins,
+	ruleName,
 	config: [ '/./' ],
 
 	accept: [
