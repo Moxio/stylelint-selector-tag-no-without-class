@@ -2,14 +2,9 @@ import _ from "lodash";
 import stylelint from "stylelint";
 import selectorParser from 'postcss-selector-parser';
 
-import hasInterpolation from 'stylelint/lib/utils/hasInterpolation.mjs';
-import hasLessInterpolation from 'stylelint/lib/utils/hasLessInterpolation.mjs';
-import hasPsvInterpolation from "stylelint/lib/utils/hasPsvInterpolation.mjs";
-import hasScssInterpolation from "stylelint/lib/utils/hasScssInterpolation.mjs";
-import hasTplInterpolation from "stylelint/lib/utils/hasTplInterpolation.mjs";
-import isStandardSyntaxRule from 'stylelint/lib/utils/isStandardSyntaxRule.mjs';
-import matchesStringOrRegExp from 'stylelint/lib/utils/matchesStringOrRegExp.mjs';
-import isStandardSyntaxSelector from 'stylelint/lib/utils/isStandardSyntaxSelector.mjs';
+import isStandardSyntaxRule from "./utils/isStandardSyntaxRule.mjs";
+import matchesStringOrRegExp from "./utils/matchesStringOrRegExp.mjs";
+import isStandardSyntaxSelector from "./utils/isStandardSyntaxSelector.mjs";
 
 const {
 	createPlugin,
