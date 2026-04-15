@@ -36,7 +36,7 @@ testRule({
 			code: '.foo div {}',
 			message: messages.unexpected('div'),
 			line: 1,
-			column: 6
+			column: 1
 		},
 		{
 			code: 'div:hover {}',
