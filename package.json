@@ -34,9 +34,9 @@
     "stylelint-test-rule-node": "^1.1.0"
   },
   "peerDependencies": {
-    "stylelint": ">= 17.x"
+    "stylelint": ">=17"
   },
   "engines": {
-    "node": ">=18.12.0"
+    "node": ">=22"
   }
 }
